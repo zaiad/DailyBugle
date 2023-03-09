@@ -23,8 +23,8 @@ const Home = () => {
   const handlePress = async () => {
     const URL = `https://newsdata.io/api/1/news?apikey=${API_KEY}&country=ca,fr,de,ma,kp&language=en${
       selectedCategories.length > 0
-        ? `&category=${selectedCategories.join()}`
-        : ""
+        && `&category=${selectedCategories.join()}`
+        
     }`;
     // console.log(URL);
     try {
@@ -35,7 +35,7 @@ const Home = () => {
       console.log(error);
     }
   };
-  console.log(newsData.length > 0 ? Object.keys(newsData[0]) : []);
+  // console.log(newsData.length > 0 ? Object.keys(newsData[0]) : []);
   // console.log(Object.keys(newsData[0]));
 
   return (
@@ -72,6 +72,7 @@ const Home = () => {
         </Button>
       </View>
       <FlatList
+      style={styles.flatList}
         data={newsData}
         renderItem={({ item }) => (
           <CardItem
@@ -85,6 +86,9 @@ const Home = () => {
             language={item.language}
             link={item.link}
             pubDate={item.pubDate}
+            source_id={item.source_id}
+            title={item.title}
+            video_url={item.video_url}
           />
         )}
       />
@@ -112,4 +116,7 @@ const styles = StyleSheet.create({
     padding: 0,
     maxHeight: 40,
   },
+  flatList : {
+    height: 'auto'
+  }
 });
