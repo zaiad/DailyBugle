@@ -1,3 +1,4 @@
+
 export type NewsData = {
     title: string;
     link: string;
@@ -13,3 +14,8 @@ export type NewsData = {
     country: string;
     language: string;
 };
+
+export type ComponentNavigationProps = {
+    navigation: NavigationProp<Route>;
+    route: RouteProp<Route>
+}
