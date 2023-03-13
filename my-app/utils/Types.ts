@@ -1,3 +1,5 @@
+import { NavigationProp, RouteProp } from "@react-navigation/native";
+import { Route } from 'react-native';
 
 export type NewsData = {
     title: string;
