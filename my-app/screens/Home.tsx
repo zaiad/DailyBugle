@@ -9,7 +9,7 @@ import CardItem from "../components/CardItem";
 const categories = ["Technology", "Sports", "Politics", "Health", "Business"];
 const API_KEY = "pub_18477212e751dc38cb21c5c2176e532c458f3";
 
-const Home = (props:ComponentNavigationProps) => {
+const Home = (props: ComponentNavigationProps) => {
   const [newsData, setNewsData] = useState<NewsData[]>([]);
   const theme = useTheme();
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -30,9 +30,9 @@ const Home = (props:ComponentNavigationProps) => {
       await fetch(URL)
         .then((res) => res.json())
         .then((data) => {
-          // setNewsData((prev) => [...prev, ...data.results]);
-          setNewsData(data.results)
-          setNextPage(data.nextPage)
+          setNewsData((prev) => [...prev, ...data.results]);
+          // setNewsData(data.results)
+          setNextPage(data.nextPage);
         });
     } catch (error) {
       console.log(error);
@@ -75,7 +75,7 @@ const Home = (props:ComponentNavigationProps) => {
         </Button>
       </View>
       <FlatList
-      onEndReached={() => handlePress()}
+        onEndReached={() => handlePress()}
         style={styles.flatList}
         data={newsData}
         renderItem={({ item }) => (
