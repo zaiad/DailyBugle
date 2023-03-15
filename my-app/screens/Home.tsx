@@ -2,7 +2,7 @@
 
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
-import { Appbar, Chip, Button, useTheme, ProgressBar, MD3Colors } from "react-native-paper";
+import { Appbar, Chip, Button, useTheme, ProgressBar, MD3Colors, ActivityIndicator } from "react-native-paper";
 import { ComponentNavigationProps, NewsData } from "../utils/Types";
 import CardItem from "../components/CardItem";
 
@@ -54,7 +54,7 @@ const Home = (props: ComponentNavigationProps) => {
             key={cat}
             mode="outlined"
             style={styles.chipItem}
-            textStyle={{ fontWeight: "400", color: "white", padding: 1 }}
+            textStyle={{ fontWeight: "400", color: "white", padding: 1}}
             showSelectedOverlay
             selected={selectedCategories.find((c) => cat === c) ? true : false}
             onPress={() => handleSelect(cat)}
@@ -76,7 +76,7 @@ const Home = (props: ComponentNavigationProps) => {
           Refresh
         </Button>
       </View>
-      <ProgressBar visible={isLoading} indeterminate color={MD3Colors.error50} />
+      <ActivityIndicator style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} size="large"  animating={isLoading} color={MD3Colors.error50} />
       <FlatList
       keyExtractor={(item) => item.title}
         onEndReached={() => handlePress()}
@@ -89,15 +89,6 @@ const Home = (props: ComponentNavigationProps) => {
             image_url={item.image_url}
             title={item.title}
             content={item.content}
-            // category={item.category}
-            // country={item.country}
-            // creator={item.creator}
-            // keywords={item.keywords}
-            // language={item.language}
-            // link={item.link}
-            // pubDate={item.pubDate}
-            // source_id={item.source_id}
-            // video_url={item.video_url}
           />
         )}
       />

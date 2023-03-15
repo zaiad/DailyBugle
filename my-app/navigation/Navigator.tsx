@@ -6,6 +6,7 @@ import Home from "../screens/Home";
 import Saved from "../screens/Saved";
 import NewsOverview from "../screens/NewsOverview";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import Welcome from "../screens/Welcome";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -29,9 +30,14 @@ function HomeScreen() {
       />
       <Tab.Screen
         options={{
-          // tabBarIcon(props) {
-          //   return;
-          // },
+          tabBarIcon(props) {
+            return (
+              <Icon
+                name={props.focused ? "heart" : "heart-outline"}
+                {...props}
+              />
+            );
+          },
         }}
         name="Saved"
         component={Saved}
@@ -44,6 +50,11 @@ export default function AppNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Welcome"
+          component={Welcome}
+        />
         <Stack.Screen
           options={{ headerShown: false }}
           name="HomeScreen"
