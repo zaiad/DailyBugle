@@ -2,7 +2,7 @@
 
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
-import { Appbar, Chip, Button, useTheme } from "react-native-paper";
+import { Appbar, Chip, Button, useTheme, ProgressBar, MD3Colors } from "react-native-paper";
 import { ComponentNavigationProps, NewsData } from "../utils/Types";
 import CardItem from "../components/CardItem";
 
@@ -10,9 +10,9 @@ const categories = ["Technology", "Sports", "Politics", "Health", "Business"];
 const API_KEY = "pub_18477212e751dc38cb21c5c2176e532c458f3";
 
 const Home = (props: ComponentNavigationProps) => {
-  const [newsData, setNewsData] = useState<NewsData[]>([]);
-  const theme = useTheme();
+  const [newsData, setNewsData] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [isLoading, setIsLoading] = useState(false)
   const [nextPage, setNextPage] = useState("");
   const handleSelect = (val: string) => {
     setSelectedCategories((prev: string[]) =>
@@ -27,13 +27,15 @@ const Home = (props: ComponentNavigationProps) => {
     }${nextPage.length > 0 ? `&page${nextPage}` : ""}`;
     // console.log(URL);
     try {
+      setIsLoading(true)
       await fetch(URL)
         .then((res) => res.json())
         .then((data) => {
-          setNewsData((prev) => [...prev, ...data.results]);
-          // setNewsData(data.results)
+          // setNewsData((prev) => [...prev, ...data.results]);
+          setNewsData(data.results)
           setNextPage(data.nextPage);
         });
+        setIsLoading(false)
     } catch (error) {
       console.log(error);
     }
@@ -74,7 +76,9 @@ const Home = (props: ComponentNavigationProps) => {
           Refresh
         </Button>
       </View>
+      <ProgressBar visible={isLoading} indeterminate color={MD3Colors.error50} />
       <FlatList
+      keyExtractor={(item) => item.title}
         onEndReached={() => handlePress()}
         style={styles.flatList}
         data={newsData}

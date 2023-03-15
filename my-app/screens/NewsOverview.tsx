@@ -27,16 +27,16 @@ const storeData = async (value: NewsData) => {
         const jsonValue = JSON.stringify(data);
         await AsyncStorage.setItem("@newsData", jsonValue);
     } catch (e) {
-        return alert('Something went wrong with storing data')
+        return alert('Something went wrong with storing')
     }
 };
 
 const NewsOverview = (props: ComponentNavigationProps) => {
-    const { title, content, image_url } = props?.route?.params as NewsData;
+    const { title, content, image_url, description } = props?.route?.params as NewsData;
 
     props.navigation.setOptions({
         headerRight: () => (
-        <Button onPress={() => storeData({ title, content, image_url })}>
+        <Button onPress={() => storeData( {title, content, image_url, description })}>
             Save
         </Button>
         ),

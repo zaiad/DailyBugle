@@ -5,6 +5,7 @@ import { Text, View } from "react-native";
 import Home from "../screens/Home";
 import Saved from "../screens/Saved";
 import NewsOverview from "../screens/NewsOverview";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -12,23 +13,44 @@ const Tab = createBottomTabNavigator();
 function HomeScreen() {
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Saved" component={Saved} />
+      <Tab.Screen
+        options={{
+          tabBarIcon(props) {
+            return (
+              <Icon
+                name={props.focused ? "home-circle" : "home-circle-outline"}
+                {...props}
+              />
+            );
+          },
+        }}
+        name="Home"
+        component={Home}
+      />
+      <Tab.Screen
+        options={{
+          // tabBarIcon(props) {
+          //   return;
+          // },
+        }}
+        name="Saved"
+        component={Saved}
+      />
     </Tab.Navigator>
   );
 }
 
 export default function AppNavigator() {
-    return (
-        <NavigationContainer>
-            <Stack.Navigator>
-                <Stack.Screen
-                options={{ headerShown: false }}
-                name="HomeScreen"
-                component={HomeScreen}
-                />
-                <Stack.Screen name="NewsOverview" component={NewsOverview} />
-            </Stack.Navigator>
-        </NavigationContainer>
-    );
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="HomeScreen"
+          component={HomeScreen}
+        />
+        <Stack.Screen name="NewsOverview" component={NewsOverview} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }
